@@ -1,10 +1,10 @@
 {
   "name": "ygo-card-api",
-  "version": "1.0.0",
-  "main": "src/index.js",
+  "version": "1.0.1",
+  "main": "index.js",
   "scripts": {
     "test": "node cardManager.test.js",
-    "publish": "npm link"
+    "build": "npm link ygo-card-api"
   },
   "author": "",
   "license": "ISC",

@@ -1,4 +1,5 @@
 const fs = require("fs");
+const axios = require("axios");
 
 function saveData(data, filePath) {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
@@ -8,7 +9,7 @@ function saveData(data, filePath) {
 async function fetchData() {
   try {
     const response = await axios.get(
-      "https://db.ygoprodeck.com/api/v7/cardinfo.php?misc=yes"
+      "https://json-db-rosy.vercel.app/api/ygo-card"
     );
     return response.data;
   } catch (error) {
@@ -17,7 +18,8 @@ async function fetchData() {
 }
 
 async function fetchAndSave(filePath) {
-  saveData(fetchData(), filePath);
+  saveData(await fetchData(), filePath);
+  console.log("cards.json generated.");
 }
 
 module.exports = Data = { fetchAndSave, fetchData, saveData };

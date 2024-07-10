@@ -1,11 +1,11 @@
-// const { fetchData, saveData, queryData } = require('ygo-card-api');
-const { Data, Query } = require("./index");
+// const { Data, Query } = require("./index");
+const { Data, Query } = require('ygo-card-api');
 
-const filePath = "./cardmd.json";
+const filePath = "./cards.json";
 
 (async () => {
   // Lấy dữ liệu từ URL và lưu vào file JSON
-  // fetchAndSave(filePath);
+  fetchAndSave(filePath);
 
   // Sort the format of the cards (tcg, goat, ocg goat, speed duel, master duel, rush duel, duel links).
   // Note: Duel Links is not 100% accurate but is close.
