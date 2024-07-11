@@ -1,7 +1,7 @@
 const Data = require("./src/Data");
-const Query = require("./src/queryCards");
+const Search = require("./src/SearchCards");
 
 module.exports = {
   Data,
-  Query,
+  Search,
 };

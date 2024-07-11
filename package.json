@@ -3,8 +3,11 @@
   "version": "1.0.1",
   "main": "index.js",
   "scripts": {
-    "test": "node cardManager.test.js",
-    "build": "npm link ygo-card-api"
+    "test": "node ./src/test/cardManager.test.js",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinhvizg1040/ygo-card-api.git"
   },
   "author": "",
   "license": "ISC",
