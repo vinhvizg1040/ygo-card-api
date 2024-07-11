@@ -6,4 +6,4 @@ function search(filePath, params) {
   return filterCards(data.data, params);
 }
 
-module.exports = SearchCards = { search };
+module.exports = { search };

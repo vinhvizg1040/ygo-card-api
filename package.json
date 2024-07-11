@@ -1,15 +1,15 @@
 {
   "name": "ygo-card-api",
-  "version": "1.0.1",
+  "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "test": "node ./src/test/cardManager.test.js",
+    "test": "node ./src/test/cardManager.test.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vinhvizg1040/ygo-card-api.git"
   },
-  "author": "",
+  "author": "vinhvizg1040@gmail.com",
   "license": "ISC",
   "description": "",
   "dependencies": {
