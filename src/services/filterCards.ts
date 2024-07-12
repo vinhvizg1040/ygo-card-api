@@ -1,4 +1,4 @@
-function filterCards(data, params) {
+function filterCards(cards: any[], params: { [key: string]: any }) {
   // Split multiple values into arrays for specific parameters
   const splitParams = ["name", "id", "type", "race", "attribute", "linkmarker"];
   splitParams.forEach((param) => {
@@ -7,7 +7,7 @@ function filterCards(data, params) {
     }
   });
 
-  return data
+  return cards
     .filter((card) => {
       // Filter by formats in misc_info
       if (params.formats && !card.misc_info[0].formats.includes(params.formats))
@@ -55,7 +55,7 @@ function filterCards(data, params) {
       // Filter by linkmarker
       if (
         params.linkmarker &&
-        !params.linkmarker.every((marker) => card.linkmarkers.includes(marker))
+        !params.linkmarker.every((marker: any) => card.linkmarkers.includes(marker))
       )
         return false;
 
@@ -66,7 +66,7 @@ function filterCards(data, params) {
       // Filter by cardset
       if (
         params.cardset &&
-        !card.card_sets.some((set) => set.set_name === params.cardset)
+        !card.card_sets.some((set: any) => set.set_name === params.cardset)
       )
         return false;
 
@@ -122,7 +122,7 @@ function filterCards(data, params) {
     });
 }
 
-module.exports = filterCards;
+export default filterCards;
 
 // // Example usage
 // const params = {
