@@ -7,12 +7,21 @@ interface SearchParams {
   [key: string]: string;
 }
 
-export function search(filePath: string, params: SearchParams) {
-  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-  return filterCards(data.data, params);
-}
+export class CardSearch {
+  private data: Card[];
 
-export function page(filePath: string, page: number, pageSize: number) {
-  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-  return paginateCards(data.data, page, pageSize);
+  constructor(data: Card[]) {
+    this.data = data;
+  }
+
+  search(params: SearchParams, page?: number, pageSize?: number) {
+    // Set default values for page and pageSize if not provided
+    if (page && pageSize) {
+      return paginateCards(filterCards(this.data, params), page, pageSize);
+    }
+    return filterCards(this.data, params);
+  }
+  page(page: number, pageSize: number) {
+    return paginateCards(this.data, page, pageSize);
+  }
 }

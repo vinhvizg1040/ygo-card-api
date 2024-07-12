@@ -1,27 +1,46 @@
 import * as fs from "fs";
 import axios from "axios";
 
-function saveData(cards: any[], filePath: string) {
-  fs.writeFileSync(filePath, JSON.stringify(cards, null, 2), "utf-8");
-  // fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-}
+export class Data {
+  private cards: Card[];
 
-async function fetchData(): Promise<any[]> {
-  try {
-    const response = await axios.get(
-      "https://json-db-rosy.vercel.app/api/ygo-card"
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching or writing data:", error);
-    return [];
+  constructor(path?: string) {
+    if (path) {
+      this.cards = this.readData(path);
+    } else {
+      this.cards = [];
+    }
+  }
+
+  private readData(path: string) {
+    try {
+      const result = JSON.parse(fs.readFileSync(path, "utf-8")).data;
+      return result;
+    } catch (error) {
+      console.error("Error fetching or writing data:", error);
+      return [];
+    }
+  }
+
+  private async fetchData() {
+    try {
+      const response = await axios.get(
+        "https://json-db-rosy.vercel.app/api/ygo-card"
+      );
+      this.cards = response.data.data;
+    } catch (error) {
+      console.error("Error fetching or writing data:", error);
+      return [];
+    }
+  }
+
+  save(filePath: string) {
+    fs.writeFileSync(filePath, JSON.stringify(this.cards, null, 2), "utf-8");
+    console.log("cards.json generated.");
+  }
+
+  async getData(): Promise<Card[]> {
+    await this.fetchData();
+    return this.cards;
   }
 }
-
-async function fetchAndSave(filePath: string): Promise<void> {
-  const data = await fetchData();
-  saveData(data, filePath);
-  console.log("cards.json generated.");
-}
-
-export { fetchAndSave, fetchData, saveData };
