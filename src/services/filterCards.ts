@@ -88,18 +88,18 @@ function filterCards(cards: any[], params: { [key: string]: any }) {
         return false;
 
       // Filter by date range and region
-      if ((params.startdate || params.enddate) && params.dateregion) {
-        const releaseDate = new Date(card.release_date[params.dateregion]);
-        const startDate = params.startdate ? new Date(params.startdate) : null;
-        const endDate = params.enddate ? new Date(params.enddate) : null;
+      // if ((params.startdate || params.enddate) && params.dateregion) {
+      //   const releaseDate = new Date(card.release_date[params.dateregion]);
+      //   const startDate = params.startdate ? new Date(params.startdate) : null;
+      //   const endDate = params.enddate ? new Date(params.enddate) : null;
 
-        if (
-          (startDate && releaseDate < startDate) ||
-          (endDate && releaseDate > endDate)
-        ) {
-          return false;
-        }
-      }
+      //   if (
+      //     (startDate && releaseDate < startDate) ||
+      //     (endDate && releaseDate > endDate)
+      //   ) {
+      //     return false;
+      //   }
+      // }
 
       return true;
     })

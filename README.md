@@ -6,13 +6,14 @@ A package that supports working with Yugioh card data.
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Installation](#installation)
-- [Examples](#examples)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+- [Yugioh - Card - API](#yugioh---card---api)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Features](#features)
+  - [Installation](#installation)
+  - [Examples](#examples)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 ## Introduction
 
@@ -36,20 +37,28 @@ npm install ygo-card-api
 ## Examples
 
 ```javascript
-const  ygo  =  require("ygo-card-api");
+const { Data, CardSearch } = require("ygo-card-api");
 
-// Fetch and save data to file JSON in the first time
-const  filePath  =  "./cards.json";
-ygo.Data.fetchAndSave(filePath);
+// Load data from JSON file
+dataFromJson = new Data("cards.json");
+// Or from api
+dataFromAPI = new Data();
+// save file with path
+dataFromAPI.save("your_path.json");
 
-// search from file JSON
+// Fetches data asynchronously from 'dataFromAPI' 
+// and initializes a new CardSearch instance with the retrieved data.
+// 'await' ensures that the data retrieval completes before assigning it to 'cards'.
+cards = new CardSearch(await dataFromAPI.getData());
+
+// SEARCH
 
 // Sort the format of the cards (tcg, goat, ocg goat, speed duel, master duel, rush duel, duel links).
-const duellinks = ygo.search(filePath, { formats: "Duel Links" });
+const duellinks = cards.search({ formats: "Duel Links" });
 // Log: List of duel links card
 console.log(duellinks);
 
-// Search Option: formats, name, fname, id, konami_id, type, atk, def, level, race, attribute, 
+// Search Option: formats, name, fname, id, konami_id, type, atk, def, level, race, attribute,
 // link, linkmarker, scale, cardsetm archetype, banlist, staple, has_effect, startdate, enddate, dateregion.
 // misc: "yes" (if you want additional info).
 // sort: search_option (if you want sort with name or atk,...)
@@ -59,8 +68,8 @@ const params = {
   sort: "name",
   misc: "yes",
 };
-const results = ygo.search(filePath, params);
-
+const results = cards.search(params);
+// search result
 console.log(results);
 ```
 

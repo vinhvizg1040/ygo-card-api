@@ -1,7 +1,4 @@
-import * as Data from "./src/Data";
-import { search } from "./src/SearchCards";
+import { Data } from "./src/Data";
+import { CardSearch } from "./src/SearchCards";
 
-export {
-  Data,
-  search,
-};
+export { Data, CardSearch };
