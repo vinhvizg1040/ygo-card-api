@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import filterCards from "./services/filterCards";
 import paginateCards from "./services/paginateCards";
 
