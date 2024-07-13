@@ -71,7 +71,6 @@ const params = {
 const results = cards.search(params, page, pageSize);
 
 console.log(results);
-
 ```
 
 ## Contributing
