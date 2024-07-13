@@ -40,16 +40,16 @@ npm install ygo-card-api
 const { Data, CardSearch } = require("ygo-card-api");
 
 // Load data from JSON file
-dataFromJson = new Data("cards.json");
+const dataFromJson = new Data("cards.json");
 // Or from api
-dataFromAPI = new Data();
+const dataFromAPI = new Data();
 // save file with path
 dataFromAPI.save("your_path.json");
 
 // Fetches data asynchronously from 'dataFromAPI' 
 // and initializes a new CardSearch instance with the retrieved data.
 // 'await' ensures that the data retrieval completes before assigning it to 'cards'.
-cards = new CardSearch(await dataFromAPI.getData());
+const cards = new CardSearch(await dataFromAPI.getData());
 
 // SEARCH
 
