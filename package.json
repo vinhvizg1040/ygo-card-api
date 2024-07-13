@@ -1,6 +1,6 @@
 {
-  "name": "@vinhvizg1040/ygo-card-api",
-  "version": "0.0.3",
+  "name": "ygo-card-api",
+  "version": "0.0.5",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -17,7 +17,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "axios": "^1.7.2",
+    "axios": "^1.7.2" ,
     "fs": "^0.0.1-security"
   },
   "devDependencies": {
