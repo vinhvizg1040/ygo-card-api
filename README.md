@@ -46,31 +46,32 @@ const dataFromAPI = new Data();
 // save file with path
 dataFromAPI.save("your_path.json");
 
-// Fetches data asynchronously from 'dataFromAPI' 
+// Fetches data asynchronously from 'dataFromAPI'
 // and initializes a new CardSearch instance with the retrieved data.
 // 'await' ensures that the data retrieval completes before assigning it to 'cards'.
 const cards = new CardSearch(await dataFromAPI.getData());
 
-// SEARCH
-
+// ========// SEARCH CARD //============//
 // Sort the format of the cards (tcg, goat, ocg goat, speed duel, master duel, rush duel, duel links).
-const duellinks = cards.search({ formats: "Duel Links" });
-// Log: List of duel links card
-console.log(duellinks);
-
 // Search Option: formats, name, fname, id, konami_id, type, atk, def, level, race, attribute,
 // link, linkmarker, scale, cardsetm archetype, banlist, staple, has_effect, startdate, enddate, dateregion.
 // misc: "yes" (if you want additional info).
 // sort: search_option (if you want sort with name or atk,...)
+// Then paginate
+const page = 2;
+const pageSize = 10;
 const params = {
-  name: "Baby Dragon|Time Wizard",
+  formats: "Master Duel",
+  name: "Dragon",
   atk: "1200",
   sort: "name",
   misc: "yes",
 };
-const results = cards.search(params);
-// search result
+// using: cards.search(params); if you dont want paginate
+const results = cards.search(params, page, pageSize);
+
 console.log(results);
+
 ```
 
 ## Contributing
