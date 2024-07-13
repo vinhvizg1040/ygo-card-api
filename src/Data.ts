@@ -1,30 +1,30 @@
-// import fs from "fs";
+import fs from "fs";
 import axios from "axios";
 
 export class Data {
   private cards: Card[];
 
-  // constructor(path?: string) {
-  //   if (path) {
-  //     this.cards = this.readData(path);
-  //   } else {
-  //     this.cards = [];
-  //   }
-  // }
-
-  constructor() {
-    this.cards = [];
+  constructor(path?: string) {
+    if (path) {
+      this.cards = this.readData(path);
+    } else {
+      this.cards = [];
+    }
   }
 
-  // private readData(path: string) {
-  //   try {
-  //     const result = JSON.parse(fs.readFileSync(path, "utf-8")).data;
-  //     return result;
-  //   } catch (error) {
-  //     console.error("Error fetching or writing data:", error);
-  //     return [];
-  //   }
+  // constructor() {
+  //   this.cards = [];
   // }
+
+  private readData(path: string) {
+    try {
+      const result = JSON.parse(fs.readFileSync(path, "utf-8")).data;
+      return result;
+    } catch (error) {
+      console.error("Error fetching or writing data:", error);
+      return [];
+    }
+  }
 
   private async fetchData() {
     try {
@@ -38,10 +38,10 @@ export class Data {
     }
   }
 
-  // save(filePath: string) {
-  //   fs.writeFileSync(filePath, JSON.stringify(this.cards, null, 2), "utf-8");
-  //   console.log("cards.json generated.");
-  // }
+  save(filePath: string) {
+    fs.writeFileSync(filePath, JSON.stringify(this.cards, null, 2), "utf-8");
+    console.log("cards.json generated.");
+  }
 
   async getData(): Promise<Card[]> {
     await this.fetchData();
