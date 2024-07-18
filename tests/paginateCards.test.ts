@@ -1,14 +1,17 @@
 import { Data, CardSearch } from "../index"; // Import your pagination function
+const path = require('path');
 
 describe("Pagination function", () => {
   let cards: CardSearch;
   let data: Data;
 
+  const jsonFilePath = path.join(__dirname, '../cards.json');
+  
   beforeAll(async () => {
     // Load test data from JSON file before tests
-    // data = new Data("cards.json");
+    data = new Data(jsonFilePath);
     // Or from api
-    data = new Data();
+    // data = new Data();
     cards = new CardSearch(await data.getData());
   });
 

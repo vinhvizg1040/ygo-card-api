@@ -9,12 +9,9 @@ export class Data {
       this.cards = this.readData(path);
     } else {
       this.cards = [];
+      this.fetchData();
     }
   }
-
-  // constructor() {
-  //   this.cards = [];
-  // }
 
   private readData(path: string) {
     try {
@@ -29,7 +26,7 @@ export class Data {
   private async fetchData() {
     try {
       const response = await axios.get(
-        "https://json-db-rosy.vercel.app/api/ygo-card"
+        "https://db.ygoprodeck.com/api/v7/cardinfo.php?misc=yes"
       );
       this.cards = response.data.data;
     } catch (error) {
@@ -44,7 +41,6 @@ export class Data {
   }
 
   async getData(): Promise<Card[]> {
-    await this.fetchData();
     return this.cards;
   }
 }
