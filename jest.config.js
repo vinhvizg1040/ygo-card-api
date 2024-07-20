@@ -7,4 +7,5 @@ module.exports = {
   },
   testMatch: ["**/tests/**/*.test.ts"], // Đảm bảo rằng đường dẫn này đúng
   roots: ["<rootDir>/src", "<rootDir>/tests"],
+  testTimeout: 30000,
 };

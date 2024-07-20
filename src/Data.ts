@@ -5,10 +5,10 @@ export class Data {
   private cards: Card[];
 
   constructor(path?: string) {
+    this.cards = [];
     if (path) {
       this.cards = this.readData(path);
     } else {
-      this.cards = [];
       this.fetchData();
     }
   }
@@ -27,6 +27,7 @@ export class Data {
     try {
       const response = await axios.get(
         "https://db.ygoprodeck.com/api/v7/cardinfo.php?misc=yes"
+        // "https://json-db-rosy.vercel.app/api/ygo-card"
       );
       this.cards = response.data.data;
     } catch (error) {
@@ -41,6 +42,9 @@ export class Data {
   }
 
   async getData(): Promise<Card[]> {
+    if (!this.cards.length) {
+      await this.fetchData();
+    }
     return this.cards;
   }
 }

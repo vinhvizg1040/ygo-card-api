@@ -9,9 +9,9 @@ describe("Pagination function", () => {
     // Or from api
     data = new Data();
   });
-  it("should check empty data", async () => {
+  it("should check non-empty data", async () => {
     const result = await data.getData();
-    // console.log(result);
-    expect(result).toHaveLength(1);
+    // Check if the array is not empty
+    expect(result.length).toBeGreaterThan(0);
   });
 });
