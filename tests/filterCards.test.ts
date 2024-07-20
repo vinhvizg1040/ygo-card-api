@@ -36,6 +36,13 @@ describe("filterCards", () => {
     expect(result[0].race).toBe("Dragon");
   });
 
+  it("should filter cards by fname", () => {
+   
+    const params = { fname: "Magician" };
+    const result = cards.search(params);
+    expect(result.length).toBeGreaterThan(0);
+  });
+
   // it("should filter cards by release date range", () => {
   //   const params = {
   //     startdate: "2022-01-01",

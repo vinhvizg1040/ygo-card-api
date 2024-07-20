@@ -1,3 +1,19 @@
+import Fuse from "fuse.js";
+
+let fuse: Fuse<any>;
+
+function initializeFuse(cards: any[]) {
+
+  // Tùy chọn cấu hình cho Fuse.js
+  const fuseOptions = {
+    keys: ["name"],
+    threshold: 0.0, // Chỉ trả về các kết quả phù hợp hoàn hảo
+  };
+
+  // Khởi tạo Fuse với dữ liệu và tùy chọn cấu hình
+  fuse = new Fuse(cards, fuseOptions);
+}
+
 function filterCards(cards: any[], params: { [key: string]: any }) {
   // Split multiple values into arrays for specific parameters
   const splitParams = ["name", "id", "type", "race", "attribute", "linkmarker"];
@@ -7,101 +23,81 @@ function filterCards(cards: any[], params: { [key: string]: any }) {
     }
   });
 
+  // Khởi tạo Fuse nếu cần thiết
+  initializeFuse(cards);
+
+  // Nếu có fuzzy name (fname), thực hiện tìm kiếm một lần duy nhất
+  let fuzzyNames: string[] = [];
+  if (params.fname) {
+    const fuzzyResults = fuse.search(params.fname);
+    fuzzyNames = fuzzyResults.map((result: any) => result.item.name);
+  }
+
   return cards
     .filter((card) => {
-      // Filter by formats in misc_info
-      if (params.formats && !card.misc_info[0].formats.includes(params.formats))
-        return false;
+      return [
+        // Filter by formats in misc_info
+        !params.formats || card.misc_info[0].formats.includes(params.formats),
 
-      // Filter by name
-      if (params.name && !params.name.includes(card.name)) return false;
+        // Filter by name
+        !params.name || params.name.includes(card.name),
 
-      // Filter by fuzzy name (fname)
-      if (
-        params.fname &&
-        !card.name.toLowerCase().includes(params.fname.toLowerCase())
-      )
-        return false;
+        // Filter by fuzzy name (fname)
+        !params.fname || fuzzyNames.includes(card.name),
 
-      // Filter by id
-      if (params.id && !params.id.includes(card.id.toString())) return false;
+        // Filter by id
+        !params.id || params.id.includes(card.id.toString()),
 
-      // Filter by konami_id
-      if (params.konami_id && card.konami_id !== params.konami_id) return false;
+        // Filter by konami_id
+        !params.konami_id || card.konami_id === params.konami_id,
 
-      // Filter by type
-      if (params.type && !params.type.includes(card.type)) return false;
+        // Filter by type
+        !params.type || params.type.includes(card.type),
 
-      // Filter by atk
-      if (params.atk && card.atk !== parseInt(params.atk, 10)) return false;
+        // Filter by atk
+        !params.atk || card.atk === parseInt(params.atk, 10),
 
-      // Filter by def
-      if (params.def && card.def !== parseInt(params.def, 10)) return false;
+        // Filter by def
+        !params.def || card.def === parseInt(params.def, 10),
 
-      // Filter by level
-      if (params.level && card.level !== parseInt(params.level, 10))
-        return false;
+        // Filter by level
+        !params.level || card.level === parseInt(params.level, 10),
 
-      // Filter by race
-      if (params.race && !params.race.includes(card.race)) return false;
+        // Filter by race
+        !params.race || params.race.includes(card.race),
 
-      // Filter by attribute
-      if (params.attribute && !params.attribute.includes(card.attribute))
-        return false;
+        // Filter by attribute
+        !params.attribute || params.attribute.includes(card.attribute),
 
-      // Filter by link
-      if (params.link && card.link !== parseInt(params.link, 10)) return false;
+        // Filter by link
+        !params.link || card.link === parseInt(params.link, 10),
 
-      // Filter by linkmarker
-      if (
-        params.linkmarker &&
-        !params.linkmarker.every((marker: any) => card.linkmarkers.includes(marker))
-      )
-        return false;
+        // Filter by linkmarker
+        !params.linkmarker ||
+          params.linkmarker.every((marker: any) =>
+            card.linkmarkers.includes(marker)
+          ),
 
-      // Filter by scale
-      if (params.scale && card.scale !== parseInt(params.scale, 10))
-        return false;
+        // Filter by scale
+        !params.scale || card.scale === parseInt(params.scale, 10),
 
-      // Filter by cardset
-      if (
-        params.cardset &&
-        !card.card_sets.some((set: any) => set.set_name === params.cardset)
-      )
-        return false;
+        // Filter by cardset
+        !params.cardset ||
+          card.card_sets.some((set: any) => set.set_name === params.cardset),
 
-      // Filter by archetype
-      if (params.archetype && card.archetype !== params.archetype) return false;
+        // Filter by archetype
+        !params.archetype || card.archetype === params.archetype,
 
-      // Filter by banlist
-      if (params.banlist && !card.banlist_info[params.banlist]) return false;
+        // Filter by banlist
+        !params.banlist || card.banlist_info[params.banlist],
 
-      // Filter by staple
-      if (params.staple && card.staple !== (params.staple === "true"))
-        return false;
+        // Filter by staple
+        !params.staple || card.staple === (params.staple === "true"),
 
-      // Filter by has_effect
-      if (
-        params.has_effect &&
-        card.has_effect !== (params.has_effect === "true")
-      )
-        return false;
-
-      // Filter by date range and region
-      // if ((params.startdate || params.enddate) && params.dateregion) {
-      //   const releaseDate = new Date(card.release_date[params.dateregion]);
-      //   const startDate = params.startdate ? new Date(params.startdate) : null;
-      //   const endDate = params.enddate ? new Date(params.enddate) : null;
-
-      //   if (
-      //     (startDate && releaseDate < startDate) ||
-      //     (endDate && releaseDate > endDate)
-      //   ) {
-      //     return false;
-      //   }
-      // }
-
-      return true;
+        // Filter by has_effect
+        !params.has_effect ||
+          card.has_effect === (params.has_effect === "true"),
+      ].every(Boolean);
     })
     .sort((a, b) => {
       // Sort the cards
@@ -124,7 +120,7 @@ function filterCards(cards: any[], params: { [key: string]: any }) {
 
 export default filterCards;
 
-// // Example usage
+// Example usage
 // const params = {
 //     name: 'Baby Dragon|Time Wizard',
 //     atk: '1200',
@@ -133,7 +129,6 @@ export default filterCards;
 // };
 
 // const filteredCards = filterCards(data, params);
-// // console.log(filteredCards);
 // fs.writeFileSync('carditest.json', JSON.stringify(filteredCards, null, 2));
 
 // console.log('Tổng số thẻ:', totalCards);

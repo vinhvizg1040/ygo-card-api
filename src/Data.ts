@@ -4,6 +4,7 @@ import axios from "axios";
 export class Data {
   private cards: Card[];
 
+  // IDK something wroong here
   constructor(path?: string) {
     this.cards = [];
     if (path) {
@@ -23,6 +24,7 @@ export class Data {
     }
   }
 
+  // Or here
   private async fetchData() {
     try {
       const response = await axios.get(
@@ -42,6 +44,7 @@ export class Data {
   }
 
   async getData(): Promise<Card[]> {
+    // That why i use it
     if (!this.cards.length) {
       await this.fetchData();
     }
