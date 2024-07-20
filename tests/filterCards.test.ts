@@ -1,13 +1,15 @@
 import { Data, CardSearch } from "../index";
-// import * as fs from "fs";
+const path = require("path");
 
 describe("filterCards", () => {
   let cards: CardSearch;
   let data: Data;
 
+  // const jsonFilePath = path.join(__dirname, "../cards.json");
+
   beforeAll(async () => {
     // Load test data from JSON file before tests
-    // data = new Data("cards.json");
+    // data = new Data(jsonFilePath);
     // Or from api
     data = new Data();
     cards = new CardSearch(await data.getData());
@@ -32,6 +34,13 @@ describe("filterCards", () => {
     const result = cards.search(params);
     expect(result[0].type).toBe("Normal Monster");
     expect(result[0].race).toBe("Dragon");
+  });
+
+  it("should filter cards by fname", () => {
+   
+    const params = { fname: "Magician" };
+    const result = cards.search(params);
+    expect(result.length).toBeGreaterThan(0);
   });
 
   // it("should filter cards by release date range", () => {

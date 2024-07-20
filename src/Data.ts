@@ -4,17 +4,15 @@ import axios from "axios";
 export class Data {
   private cards: Card[];
 
+  // IDK something wroong here
   constructor(path?: string) {
+    this.cards = [];
     if (path) {
       this.cards = this.readData(path);
     } else {
-      this.cards = [];
+      this.fetchData();
     }
   }
-
-  // constructor() {
-  //   this.cards = [];
-  // }
 
   private readData(path: string) {
     try {
@@ -26,9 +24,11 @@ export class Data {
     }
   }
 
+  // Or here
   private async fetchData() {
     try {
       const response = await axios.get(
+        // "https://db.ygoprodeck.com/api/v7/cardinfo.php?misc=yes"
         "https://json-db-rosy.vercel.app/api/ygo-card"
       );
       this.cards = response.data.data;
@@ -44,7 +44,10 @@ export class Data {
   }
 
   async getData(): Promise<Card[]> {
-    await this.fetchData();
+    // That why i use it
+    if (!this.cards.length) {
+      await this.fetchData();
+    }
     return this.cards;
   }
 }
