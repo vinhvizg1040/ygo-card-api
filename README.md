@@ -1,6 +1,6 @@
 # Yugioh - Card - API
 
-![npm](https://img.shields.io/npm/v/ygo-card-api) ![license](https://img.shields.io/npm/l/ygo-card-api) ![downloads](https://img.shields.io/npm/dm/ygo-card-api) [![Node.js Package](https://github.com/vinhvizg1040/ygo-card-api/actions/workflows/npm-publish.yml/badge.svg?branch=master)](https://github.com/vinhvizg1040/ygo-card-api/actions/workflows/npm-publish.yml)
+![npm](https://img.shields.io/npm/v/@vinhvizg/ygo-card-api) ![license](https://img.shields.io/npm/l/@vinhvizg/ygo-card-api) ![downloads](https://img.shields.io/npm/dm/@vinhvizg/ygo-card-api) [![Node.js Package](https://github.com/vinhvizg1040/@vinhvizg/ygo-card-api/actions/workflows/npm-publish.yml/badge.svg?branch=master)](https://github.com/vinhvizg1040/@vinhvizg/ygo-card-api/actions/workflows/npm-publish.yml)
 
 A package that supports working with Yugioh card data.
 
