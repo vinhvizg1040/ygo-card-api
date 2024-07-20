@@ -5,13 +5,13 @@ describe("filterCards", () => {
   let cards: CardSearch;
   let data: Data;
 
-  const jsonFilePath = path.join(__dirname, "../cards.json");
+  // const jsonFilePath = path.join(__dirname, "../cards.json");
 
   beforeAll(async () => {
     // Load test data from JSON file before tests
-    data = new Data(jsonFilePath);
+    // data = new Data(jsonFilePath);
     // Or from api
-    // data = new Data();
+    data = new Data();
     cards = new CardSearch(await data.getData());
   });
 
