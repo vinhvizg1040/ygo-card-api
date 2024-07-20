@@ -1,5 +1,5 @@
 {
-  "name": "@vinhvizg/ygo-card-api",
+  "name": "ygo-card-api",
   "version": "0.0.9",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
