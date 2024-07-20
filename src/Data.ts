@@ -28,8 +28,8 @@ export class Data {
   private async fetchData() {
     try {
       const response = await axios.get(
-        "https://db.ygoprodeck.com/api/v7/cardinfo.php?misc=yes"
-        // "https://json-db-rosy.vercel.app/api/ygo-card"
+        // "https://db.ygoprodeck.com/api/v7/cardinfo.php?misc=yes"
+        "https://json-db-rosy.vercel.app/api/ygo-card"
       );
       this.cards = response.data.data;
     } catch (error) {
